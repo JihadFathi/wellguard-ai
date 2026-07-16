@@ -59,10 +59,10 @@ jobs:
             supervisorctl restart wellguard
 
             echo "==> Health check..."
-            sleep 3
-            curl -sf http://localhost:8501/_stcore/health && echo "App is healthy!" || echo "Warning: Health check failed"
+            sleep 5
+            curl -sf http://localhost:8501/_stcore/health && echo " -- App is HEALTHY!" || (echo "FAILED" && exit 1)
           EOF
 
       - name: Notify success
         if: success()
-        run: echo "✅ WellGuard AI deployed successfully to http://46.202.130.253"
+        run: echo "✅ WellGuard AI deployed successfully to http://46.202.130.253:8501"
