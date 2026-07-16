@@ -148,7 +148,7 @@ if uploaded_file is not None:
 
         st.markdown('<div class="section-header">📋 Data Preview</div>', unsafe_allow_html=True)
         st.dataframe(
-            df_raw.head(50).style.set_table_styles([
+            df_raw.head(50).astype(str).style.set_table_styles([
                 {'selector': 'th', 'props': [('background-color', '#0D1F3C'), ('color', '#00B4D8')]},
                 {'selector': 'td', 'props': [('background-color', '#071020'), ('color', '#E8EAF6')]},
             ]),
