@@ -10,32 +10,10 @@
    - Text Light: #E8EAF6
 */
 
-/* ============== BASE RESET & RTL ============== */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-
-* {
-    font-family: 'Cairo', sans-serif !important;
-}
-
+/* ============== BASE RESET ============== */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 50%, #071020 100%);
     min-height: 100vh;
-}
-
-/* Ensure text flows RTL but without breaking Streamlit's flexbox columns */
-.stMarkdown, .stText, .kpi-card, .alert-box, .sensor-row {
-    direction: rtl;
-    text-align: right;
-}
-
-/* Fix Plotly charts overlapping and breaking in RTL */
-.js-plotly-plot {
-    direction: ltr !important; 
-}
-
-[data-testid="stSidebar"] {
-    direction: rtl;
-    text-align: right;
 }
 
 [data-testid="stSidebar"] {
@@ -128,8 +106,8 @@
     font-size: 1.3rem;
     font-weight: 700;
     color: #E8EAF6;
-    border-right: 4px solid #00B4D8;
-    padding-right: 12px;
+    border-left: 4px solid #00B4D8;
+    padding-left: 12px;
     margin: 24px 0 16px 0;
 }
 
