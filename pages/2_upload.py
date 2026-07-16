@@ -78,13 +78,18 @@ if uploaded_file is not None:
             xl = pd.ExcelFile(uploaded_file)
             sheet = xl.sheet_names[0]
             df_raw = xl.parse(sheet)
-            if 'Motor_Temperature' not in df_raw.columns and 'Motor_Current' not in df_raw.columns:
+            # Check if any known column names (raw or mapped) exist in row 0
+            has_cols = any(c in df_raw.columns for c in ['Motor_Temperature', 'Motor Temperature (°F)', 'Motor_Current', 'Average Amps (Amps)'])
+            if not has_cols:
                 df_raw = xl.parse(sheet, header=1)
 
         progress.progress(25, text="File loaded. Validating schema...")
         time.sleep(0.3)
 
-        # ─── Schema Validation ────────────────────────────────────────
+        # ─── Schema Validation & Renaming ─────────────────────────────
+        from preprocessing.cleaner import COLUMN_MAPPING
+        df_raw = df_raw.rename(columns=COLUMN_MAPPING)
+
         required_cols = ['Motor_Temperature', 'Motor_Current', 'Discharge_Pressure', 'Intake_Pressure']
         # Try to find timestamp column
         ts_candidates = [c for c in df_raw.columns if 'time' in c.lower() or 'date' in c.lower() or 'timestamp' in str(c).lower()]
