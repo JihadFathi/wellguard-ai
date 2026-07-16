@@ -50,14 +50,38 @@ st.markdown("""
 # If batch predictions have been stored (from upload page), use them.
 # Otherwise display a sample well card.
 
-if 'batch_results' not in st.session_state:
+mock_wells = []
+
+if 'df_results' in st.session_state:
+    df = st.session_state['df_results']
+    last = df.iloc[-1]
+    mock_wells.append({
+        'well_id': st.session_state.get('well_id', 'B-167'),
+        'phi': float(last.get('health_index', 0)),
+        'status': last.get('health_status', 'Unknown'),
+        'rul': int(last.get('rul_days', 0)),
+        'label': last.get('predicted_label', 'Unknown'),
+        'probs': [0.6, 0.3, 0.1], # simplified for dashboard donut
+        'last_update': 'Latest Upload'
+    })
+elif 'manual_result' in st.session_state:
+    res = st.session_state['manual_result']
+    mock_wells.append({
+        'well_id': st.session_state.get('well_id', 'B-167'),
+        'phi': res['health_index'],
+        'status': res['status'],
+        'rul': res['rul_days'],
+        'label': res['label'],
+        'probs': res['probabilities'],
+        'last_update': 'Latest Manual Entry'
+    })
+
+if not mock_wells:
     # Mock example for demonstration
     mock_wells = [
         {'well_id': 'B-167', 'phi': 72.3, 'status': 'Monitor', 'rul': 18, 'label': 'Warning',
-         'probs': [0.25, 0.60, 0.15], 'last_update': '2025-06-15 08:00'},
+         'probs': [0.25, 0.60, 0.15], 'last_update': 'Demo Data (No Data Uploaded Yet)'},
     ]
-else:
-    mock_wells = st.session_state.batch_results
 
 # ─── Fleet KPI Summary ────────────────────────────────────────────────
 st.markdown('<div class="section-header">Fleet Status Summary</div>', unsafe_allow_html=True)
