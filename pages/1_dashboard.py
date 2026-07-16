@@ -80,7 +80,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown('<div class="section-header">Fleet Average Health Index</div>', unsafe_allow_html=True)
 col_g, col_info = st.columns([1, 2])
 with col_g:
-    st.plotly_chart(phi_gauge(avg_phi, 'Monitor'), width='stretch', config={'displayModeBar': False})
+    st.plotly_chart(phi_gauge(avg_phi, 'Monitor'), width='stretch', config={'displayModeBar': False}, key="avg_gauge")
 with col_info:
     st.markdown(f"""
     <div style="padding:20px 0;">
@@ -144,10 +144,10 @@ for well in mock_wells:
         with st.expander(f"🔍 Detailed Analysis for {well['well_id']}"):
             gc, pc = st.columns(2)
             with gc:
-                st.plotly_chart(phi_gauge(phi, stat), width='stretch', config={'displayModeBar': False})
+                st.plotly_chart(phi_gauge(phi, stat), width='stretch', config={'displayModeBar': False}, key=f"gauge_{well['well_id']}")
             with pc:
                 from ui.components.charts import probability_donut
-                st.plotly_chart(probability_donut(well['probs']), width='stretch', config={'displayModeBar': False})
+                st.plotly_chart(probability_donut(well['probs']), width='stretch', config={'displayModeBar': False}, key=f"donut_{well['well_id']}")
 
 st.markdown("""
 <div style="text-align:center;color:#5A6478;font-size:0.8rem;padding:30px 0 10px 0;">

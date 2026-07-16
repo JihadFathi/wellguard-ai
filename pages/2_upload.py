@@ -180,7 +180,7 @@ if uploaded_file is not None:
                 st.markdown('<div class="section-header">📈 Sensor Trend Overview</div>', unsafe_allow_html=True)
                 sensor_data = {col: df_c[col].tolist() for col in sensor_cols}
                 fig = sensor_trend_chart(df_c['Timestamp'].tolist(), sensor_data)
-                st.plotly_chart(fig, width='stretch', config={'displayModeBar': True})
+                st.plotly_chart(fig, width='stretch', config={'displayModeBar': True}, key="upload_trend")
 
         # ─── Navigate to analysis ─────────────────────────────────────
         if 'df_results' in st.session_state:

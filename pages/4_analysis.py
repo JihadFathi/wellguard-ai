@@ -167,9 +167,9 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown('<div class="section-header">📊 Health Visualization</div>', unsafe_allow_html=True)
 col_gauge, col_donut = st.columns(2, gap="medium")
 with col_gauge:
-    st.plotly_chart(phi_gauge(phi, status), width='stretch', config={'displayModeBar': False})
+    st.plotly_chart(phi_gauge(phi, status), width='stretch', config={'displayModeBar': False}, key="analysis_gauge")
 with col_donut:
-    st.plotly_chart(probability_donut(probs), width='stretch', config={'displayModeBar': False})
+    st.plotly_chart(probability_donut(probs), width='stretch', config={'displayModeBar': False}, key="analysis_donut")
 
 # ─── Section 3: PHI History (batch only) ─────────────────────────────
 if history_phi and len(history_phi) > 5:
@@ -180,7 +180,7 @@ if history_phi and len(history_phi) > 5:
         import numpy as np
         ts = list(range(len(history_phi)))
     fig_trend = phi_trend_chart(ts, history_phi)
-    st.plotly_chart(fig_trend, width='stretch', config={'displayModeBar': True})
+    st.plotly_chart(fig_trend, width='stretch', config={'displayModeBar': True}, key="analysis_trend")
 
 # ─── Section 4: Sensor Status Table ───────────────────────────────────
 st.markdown('<div class="section-header">📟 Sensor Status</div>', unsafe_allow_html=True)
