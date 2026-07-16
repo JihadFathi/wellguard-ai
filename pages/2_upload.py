@@ -75,10 +75,11 @@ if uploaded_file is not None:
         if uploaded_file.name.endswith('.csv'):
             df_raw = pd.read_csv(uploaded_file)
         else:
-            # Try reading the main data sheet
             xl = pd.ExcelFile(uploaded_file)
             sheet = xl.sheet_names[0]
-            df_raw = xl.parse(sheet, header=1)  # header on row 2 as per B-167 format
+            df_raw = xl.parse(sheet)
+            if 'Motor_Temperature' not in df_raw.columns and 'Motor_Current' not in df_raw.columns:
+                df_raw = xl.parse(sheet, header=1)
 
         progress.progress(25, text="File loaded. Validating schema...")
         time.sleep(0.3)
