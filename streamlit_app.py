@@ -111,7 +111,11 @@ if uploaded_file is not None:
         else:
             xl = pd.ExcelFile(uploaded_file)
             sheet = xl.sheet_names[0]
-            df_raw = xl.parse(sheet, header=1)  # header on row 2
+            # Try parsing with header on row 0 first
+            df_raw = xl.parse(sheet)
+            # If standard columns not found, try row 1
+            if 'Motor_Temperature' not in df_raw.columns and 'Motor_Current' not in df_raw.columns:
+                df_raw = xl.parse(sheet, header=1)
 
         progress.progress(25, text="تم تحميل الملف. جاري التحقق من الأعمدة...")
         time.sleep(0.3)
