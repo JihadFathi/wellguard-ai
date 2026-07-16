@@ -31,15 +31,15 @@ def render_kpi_card(icon: str, value: str, label: str, color: str = "#00B4D8"):
 def render_status_badge(status: str):
     """Renders a colored status badge based on status string."""
     status_map = {
-        'Excellent': ('badge-healthy',  '🟢'),
-        'Healthy':   ('badge-healthy',  '🟢'),
-        'Monitor':   ('badge-monitor',  '🔵'),
-        'Warning':   ('badge-warning',  '🟡'),
-        'Critical':  ('badge-critical', '🔴'),
+        'Excellent': ('badge-healthy',  '🟢', 'ممتاز'),
+        'Healthy':   ('badge-healthy',  '🟢', 'سليمة'),
+        'Monitor':   ('badge-monitor',  '🔵', 'مراقبة'),
+        'Warning':   ('badge-warning',  '🟡', 'تحذير'),
+        'Critical':  ('badge-critical', '🔴', 'حرجة'),
     }
-    cls, icon = status_map.get(status, ('badge-monitor', '⚪'))
+    cls, icon, ar_status = status_map.get(status, ('badge-monitor', '⚪', status))
     st.markdown(f"""
-    <span class="badge {cls}">{icon} {status}</span>
+    <span class="badge {cls}">{icon} {ar_status}</span>
     """, unsafe_allow_html=True)
 
 
@@ -69,8 +69,8 @@ def phi_gauge(phi_value: float, status: str = 'Healthy') -> go.Figure:
             'suffix': '%'
         },
         title={
-            'text': f"Pump Health Index<br><b style='color:{text_color};font-size:14px'>{status}</b>",
-            'font': {'size': 14, 'color': '#8892A4', 'family': 'Inter, sans-serif'}
+            'text': f"مؤشر صحة المضخة<br><b style='color:{text_color};font-size:14px'>{status}</b>",
+            'font': {'size': 14, 'color': '#8892A4', 'family': 'Cairo, sans-serif'}
         },
         gauge={
             'axis': {
@@ -111,7 +111,7 @@ def probability_donut(probs: list) -> go.Figure:
     """
     Creates a Plotly donut chart for failure class probabilities.
     """
-    labels = ['Healthy', 'Warning', 'Critical']
+    labels = ['سليمة', 'تحذير', 'حرجة']
     colors = ['#2ECC71', '#F39C12', '#E74C3C']
     values = [round(p * 100, 1) for p in probs]
 
@@ -139,9 +139,9 @@ def probability_donut(probs: list) -> go.Figure:
         margin=dict(l=20, r=20, t=30, b=20),
         height=280,
         annotations=[dict(
-            text=f"<b>{values[0]:.0f}%</b><br>Healthy",
+            text=f"<b>{values[0]:.0f}%</b><br>سليمة",
             x=0.5, y=0.5,
-            font=dict(size=14, color='#2ECC71'),
+            font=dict(size=14, color='#2ECC71', family='Cairo, sans-serif'),
             showarrow=False
         )]
     )
@@ -187,13 +187,13 @@ def phi_trend_chart(timestamps, phi_values) -> go.Figure:
         yaxis=dict(
             range=[0, 105],
             gridcolor='rgba(255,255,255,0.05)',
-            title='Health Index (%)',
-            title_font={'color': '#8892A4'}
+            title='مؤشر الصحة (%)',
+            title_font={'color': '#8892A4', 'family': 'Cairo, sans-serif'}
         ),
         xaxis=dict(
             gridcolor='rgba(255,255,255,0.05)',
-            title='Timestamp',
-            title_font={'color': '#8892A4'}
+            title='الوقت',
+            title_font={'color': '#8892A4', 'family': 'Cairo, sans-serif'}
         ),
         hovermode='x unified',
         margin=dict(l=20, r=60, t=20, b=40),
@@ -214,10 +214,10 @@ def sensor_trend_chart(timestamps, sensor_data: dict) -> go.Figure:
         'Intake_Pressure':    '#2ECC71',
     }
     SENSOR_LABELS = {
-        'Motor_Temperature':  'Motor Temp (°F)',
-        'Motor_Current':      'Motor Current (A)',
-        'Discharge_Pressure': 'Discharge Pressure (psi)',
-        'Intake_Pressure':    'Intake Pressure (psi)',
+        'Motor_Temperature':  'حرارة المحرك (°F)',
+        'Motor_Current':      'تيار المحرك (A)',
+        'Discharge_Pressure': 'ضغط التفريغ (psi)',
+        'Intake_Pressure':    'ضغط السحب (psi)',
     }
 
     fig = go.Figure()
@@ -265,9 +265,9 @@ def render_recommendation_card(rec: dict):
     <div class="alert-box {css_cls}">
         <div style="font-size:1.4rem">{icon}</div>
         <div>
-            <div style="color:{color};font-weight:700;font-size:0.95rem">{rec.get('priority_lbl','P4 - Low')} — {rec.get('title','')}</div>
+            <div style="color:{color};font-weight:700;font-size:0.95rem">{rec.get('priority_lbl','P4 - منخفض')} — {rec.get('title','')}</div>
             <div style="color:#B0B8C8;font-size:0.88rem;margin-top:4px">{rec.get('description','')}</div>
-            <div style="color:#8892A4;font-size:0.82rem;margin-top:4px">⏱ Response time: <b style="color:{color}">{rec.get('response_time','')}</b></div>
+            <div style="color:#8892A4;font-size:0.82rem;margin-top:4px">⏱ زمن الاستجابة المطلوب: <b style="color:{color}">{rec.get('response_time','')}</b></div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -285,10 +285,10 @@ def render_sensor_table(sensor_values: dict, trend_values: dict, baselines: dict
         baselines = default_baselines
 
     labels = {
-        'Motor_Temperature':  'Motor Temperature',
-        'Motor_Current':      'Motor Current',
-        'Discharge_Pressure': 'Discharge Pressure',
-        'Intake_Pressure':    'Intake Pressure',
+        'Motor_Temperature':  'حرارة المحرك',
+        'Motor_Current':      'تيار المحرك',
+        'Discharge_Pressure': 'ضغط التفريغ',
+        'Intake_Pressure':    'ضغط السحب',
     }
 
     for sensor, val in sensor_values.items():
@@ -325,7 +325,7 @@ def render_sensor_table(sensor_values: dict, trend_values: dict, baselines: dict
         <div class="sensor-row">
             <div>
                 <div class="sensor-name">{labels[sensor]}</div>
-                <div style="color:#5A6478;font-size:0.75rem">Baseline: {baseline_val} {unit}</div>
+                <div style="color:#5A6478;font-size:0.75rem">المرجع الطبيعي: {baseline_val} {unit}</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px">
                 <span class="sensor-value">{val:.1f} {unit}</span>
