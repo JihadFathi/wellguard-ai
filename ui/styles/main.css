@@ -1,0 +1,175 @@
+/* WellGuard AI - Main CSS Stylesheet */
+/* Color Palette:
+   - Primary Dark: #0A1628
+   - Secondary Dark: #0D1F3C
+   - Accent Blue: #00B4D8
+   - Accent Teal: #0096B7
+   - Success Green: #2ECC71
+   - Warning Orange: #F39C12
+   - Critical Red: #E74C3C
+   - Text Light: #E8EAF6
+*/
+
+/* ============== BASE RESET ============== */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 50%, #071020 100%);
+    min-height: 100vh;
+}
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0D1F3C 0%, #071020 100%);
+    border-right: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    color: #00B4D8;
+}
+
+/* ============== KPI CARDS ============== */
+.kpi-card {
+    background: linear-gradient(135deg, rgba(13,31,60,0.95) 0%, rgba(10,22,40,0.95) 100%);
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00B4D8, #2ECC71);
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 180, 216, 0.6);
+}
+.kpi-card .kpi-value {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #00B4D8;
+    line-height: 1.1;
+}
+.kpi-card .kpi-label {
+    font-size: 0.82rem;
+    color: #8892A4;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+}
+.kpi-card .kpi-icon {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+/* ============== STATUS BADGES ============== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+.badge-healthy  { background: rgba(46,204,113,0.2);  color: #2ECC71; border: 1px solid rgba(46,204,113,0.4); }
+.badge-warning  { background: rgba(243,156,18,0.2);  color: #F39C12; border: 1px solid rgba(243,156,18,0.4); }
+.badge-critical { background: rgba(231,76,60,0.2);   color: #E74C3C; border: 1px solid rgba(231,76,60,0.4); }
+.badge-monitor  { background: rgba(0,180,216,0.2);   color: #00B4D8; border: 1px solid rgba(0,180,216,0.4); }
+
+/* ============== WELL CARD ============== */
+.well-card {
+    background: linear-gradient(135deg, rgba(13,31,60,0.9) 0%, rgba(10,22,40,0.9) 100%);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+.well-card:hover {
+    border-color: rgba(0, 180, 216, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 180, 216, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ============== SECTION HEADERS ============== */
+.section-header {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #E8EAF6;
+    border-left: 4px solid #00B4D8;
+    padding-left: 12px;
+    margin: 24px 0 16px 0;
+}
+
+/* ============== ALERTS ============== */
+.alert-box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.alert-urgent  { background: rgba(231,76,60,0.15);  border: 1px solid rgba(231,76,60,0.4); }
+.alert-high    { background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); }
+.alert-medium  { background: rgba(0,180,216,0.15);  border: 1px solid rgba(0,180,216,0.4); }
+.alert-low     { background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.4); }
+
+/* ============== PHI GAUGE ============== */
+.phi-container {
+    text-align: center;
+    padding: 20px;
+}
+.phi-value-display {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+}
+.phi-label {
+    font-size: 0.85rem;
+    color: #8892A4;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+}
+
+/* ============== SENSOR TABLE ============== */
+.sensor-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    background: rgba(13,31,60,0.6);
+    border: 1px solid rgba(0, 180, 216, 0.1);
+}
+.sensor-name { color: #8892A4; font-size: 0.88rem; }
+.sensor-value { color: #E8EAF6; font-weight: 700; font-size: 1rem; }
+
+/* ============== ANIMATIONS ============== */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(231, 76, 60, 0.4); }
+    50%       { box-shadow: 0 0 30px rgba(231, 76, 60, 0.8); }
+}
+.critical-pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+}

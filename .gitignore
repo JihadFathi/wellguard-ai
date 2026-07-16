@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+ENV/
+
+# Large raw datasets (DO NOT commit)
+data/raw/*.xlsx
+data/raw/*.csv
+data/raw/*.xls
+data/processed/
+
+# Temporary report images
+reports/generated/temp_*.png
+
+# IDE files
+.vscode/
+.idea/
+
+# pytest cache
+.pytest_cache/
+
+# NOTE: models/trained/*.pkl ARE committed so Streamlit Cloud can load them

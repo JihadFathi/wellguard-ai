@@ -1,0 +1,2 @@
+# System-level packages required by Streamlit Community Cloud
+# (matplotlib backend dependencies)

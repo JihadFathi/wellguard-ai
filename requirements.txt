@@ -1,0 +1,14 @@
+pandas
+numpy
+scikit-learn
+xgboost
+lightgbm
+plotly
+matplotlib
+seaborn
+streamlit
+reportlab
+fpdf2
+openpyxl
+pytest
+optuna
